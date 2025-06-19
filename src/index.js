@@ -1,10 +1,14 @@
-// Starting the jsl 2 js script
+// Starting the jsl 3 js script
 
 // Save this data in an object or array and loop through when needed
 const tasks = [];
+// Link each task to a unique id
+let uniqueId = 0; // This will probably need to be stored and fetched/updated based on the last stored number, assign the variable to the local storage
+// Button to add new tasks here to run this code as a function, makes it easier to test the codes functionality
+const addTaskBtn = document.querySelector('#btn-add-task');
 // Promt the user to enter title, description, and status for 2 seperate tasks
-// Loop to prompt the user for 2 task entries
-for(let i = 0; i < 2; i++) {
+// Loop to prompt the user for 3 task entries
+for(let i = 0; i < 3; i++) {
     // Store the user answers in variables
     const title = prompt(`Please enter the title of the task ${i + 1}`);
     const description = prompt('Please enter the description of the task');
@@ -15,8 +19,11 @@ for(let i = 0; i < 2; i++) {
         alert('Sorry you did not enter a valid status for the task, please enter todo, done, or doing');
         taskStatus = prompt('Please enter the status of the task. Valid status: todo, done, doing').toLowerCase();
     }
+    //Increment id for each new task
+    uniqueId++;
     // Create new object and push to the array
     tasks.push({
+        uniqueId: uniqueId,
         title: title,
         description: description,
         status: taskStatus
