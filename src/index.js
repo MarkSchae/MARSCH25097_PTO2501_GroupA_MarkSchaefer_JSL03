@@ -43,15 +43,13 @@ function clickToAddTask() {
     const completedTasks = tasks.filter(task => task.status === 'done'); // Each object inside the tasks array is run through the funtion that checks if each object has a status of 'done', add the objects with the 'done' status to the new array which is the completed tasks
     const doneTasks = completedTasks.length > 0; // Bolean condition, if there is more than 0 objects saved in the completedTasks array then the bolean is true otherwise it stays fales and there are not completed tasks
 
-
     // Log all the tasks (array of all tasks) regardless of status
     // console.log(`All tasks ${JSON.stringify(tasks)}`); More for sending/fetching data
     console.log('All tasks:', tasks);
-
     // Log the tasks (array of all tasks with status:done) that are done
     // console.log(`Completed: ${JSON.stringify(completedTasks)}`); More for sending/fetching data
     console.log('Completed tasks:', completedTasks);
-
+    // Combine the no tasks condition with a condition that checks if there are any completed tasks, log completed else log the motivation message
     // If no tasks are marked as 'done' display a motivational message to the user to complete a task in the console
     if(!doneTasks) {
         console.log("No tasks completed, let's get to work!");

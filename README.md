@@ -1,4 +1,4 @@
-# Readme for JSL-02
+# Readme for JSL-03
 
 # KanBan Board
 
@@ -100,11 +100,13 @@ Once you have set up the project and opened `index.html` in a browser:
 
 ## 🛠️ JavaScript Functionality
 
-The JavaScript (`index.js`) in the KanBan Board prompts the user to input details for tasks, specifically two tasks:
+The JavaScript (`index.js`) in the KanBan Board prompts the user to input details for tasks, specifically three additional tasks:
 
 - **Title**  
 - **Description**  
 - **Status** (must be one of: `todo`, `doing`, or `done`)
+
+To add tasks, click the Add Task button. This triggers prompts. The status must be one of todo, doing, or done. The tasks are then stored and logged in the console.
 
 The JS validates the status input, converting it to lowercase and repeatedly prompting the user until a valid status is entered. 
 
@@ -122,32 +124,44 @@ After storing the tasks in a variable, the JS logs the title and status of all t
 
 ```js
 const tasks = [];
+let uniqueId = 0;
+const addTaskBtn = document.querySelector('#btn-add-task');
+addTaskBtn.addEventListener('click', clickToAddTask);
 
-for(let i = 0; i < 2; i++) {
-    const title = prompt(`Please enter the title of task ${i + 1}`);
-    const description = prompt('Please enter the description of the task');
-    let taskStatus = prompt('Please enter the status of the task. Valid status: todo, done, doing').toLowerCase();
-
-    while (taskStatus !== 'done' && taskStatus !== 'doing' && taskStatus !== 'todo') {
-        alert('Invalid status. Please enter todo, done, or doing');
-        taskStatus = prompt('Please enter the status of the task. Valid status: todo, done, doing').toLowerCase();
+function clickToAddTask() {
+    for(let i = 0; i < 3; i++) {
+        const title = prompt(`Please enter the title of the task ${i + 1}`);
+        const description = prompt('Please enter the description of the task');
+        let taskStatus = prompt('Please enter the status of the task. Valid status: todo, done, doing').toLowerCase(); 
+        
+        while (taskStatus !== 'done' && taskStatus !== 'doing' && taskStatus !== 'todo') {
+            alert('Sorry you did not enter a valid status for the task, please enter todo, done, or doing');
+            taskStatus = prompt('Please enter the status of the task. Valid status: todo, done, doing').toLowerCase();
+        }
+        
+        uniqueId++;
+        tasks.push({
+            uniqueId: uniqueId,
+            title: title,
+            description: description,
+            status: taskStatus
+        });
     }
 
-    tasks.push({ title, description, status: taskStatus });
-}
+    if(tasks.length == 3) {
+        alert('There are enough tasks, check the console please');
+    } 
 
-let doneTasks = false;
-for(let i = 0; i < tasks.length; i++) {
-    if(tasks[i].status === 'done') {
-        console.log(`Title: ${tasks[i].title}`);
-        console.log(`Status: ${tasks[i].status}`);
-        doneTasks = true;
+    const completedTasks = tasks.filter(task => task.status === 'done'); 
+    const doneTasks = completedTasks.length > 0; 
+
+    console.log('All tasks:', tasks);
+    console.log('Completed tasks:', completedTasks);
+
+    if(!doneTasks) {
+        console.log("No tasks completed, let's get to work!");
     }
-}
-
-if(!doneTasks) {
-    console.log("No tasks completed, let's get to work!");
-}
+};
 ```
 ## 🛠️ Future Improvements
 
